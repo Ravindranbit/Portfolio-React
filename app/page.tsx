@@ -479,6 +479,14 @@ export default function Portfolio() {
                   </div>
                 ),
               },
+              {
+                name: "Tableau",
+                icon: (
+                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100">
+                    <img src="/tableau.png" alt="Tableau" className="w-12 h-12 object-contain" />
+                  </div>
+                ),
+              },
             ].map((skill, index) => (
               <div key={index} className="text-center group hover:scale-105 transition-all duration-300">
                 <div className="flex justify-center mb-4">{skill.icon}</div>
