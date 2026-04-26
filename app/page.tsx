@@ -63,10 +63,10 @@ export default function Portfolio() {
       </div>
 
       {/* Navigation */}
-      <div className="fixed top-4 sm:top-8 inset-x-0 flex justify-center z-50 px-4 pointer-events-none">
-        <nav className="pointer-events-auto bg-white/70 backdrop-blur-2xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-full p-1.5 flex items-center transition-all duration-500">
+      <div className="fixed top-3 sm:top-8 inset-x-0 flex justify-center z-50 px-2 pointer-events-none">
+        <nav className="pointer-events-auto bg-white/70 backdrop-blur-2xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-full p-1 sm:p-1.5 flex items-center transition-all duration-500">
           
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-0.5 sm:gap-2">
             {[
               { id: "about", label: "About" },
               { id: "profile", label: "Profile" },
@@ -77,7 +77,7 @@ export default function Portfolio() {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`relative px-4 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-500 group ${
+                className={`relative px-2.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-500 group ${
                   activeSection === item.id 
                     ? 'text-white' 
                     : 'text-gray-500 hover:text-gray-900'
@@ -107,32 +107,32 @@ export default function Portfolio() {
       </div>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center relative overflow-hidden bg-white pt-20">
+      <section id="home" className="min-h-screen flex items-center relative overflow-hidden bg-white pt-24 sm:pt-20">
 
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10 px-6 lg:px-12 py-20">
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center relative z-10 px-6 lg:px-12 py-12 sm:py-20">
 
           {/* Left Text Content */}
-          <div className="lg:col-span-7 text-left space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <div className="lg:col-span-7 text-center lg:text-left space-y-6 sm:space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="space-y-4">
               <span className="text-teal-600 font-semibold tracking-widest uppercase text-sm">
                 Software Engineer & Student
               </span>
-              <h1 className="text-6xl md:text-8xl tracking-tight text-gray-900 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+              <h1 className="text-5xl sm:text-6xl md:text-8xl tracking-tight text-gray-900 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
                 Ravindran G
               </h1>
             </div>
 
-            <div className="w-16 h-1 bg-gray-900 rounded-full"></div>
+            <div className="w-16 h-1 bg-gray-900 rounded-full mx-auto lg:mx-0"></div>
 
-            <p className="text-xl md:text-2xl text-gray-600 font-light max-w-2xl leading-relaxed italic border-l-4 border-teal-500 pl-4">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 font-light max-w-2xl leading-relaxed italic border-l-4 border-teal-500 pl-4 text-left">
               "I'm not just learning to code — I'm learning to solve."
             </p>
 
-            <p className="text-lg text-gray-500 max-w-lg leading-relaxed font-normal">
+            <p className="text-base sm:text-lg text-gray-500 max-w-lg leading-relaxed font-normal">
               Passionate about Full Stack Development, distributed systems, and crafting scalable solutions. Exploring modern cloud infrastructure and building efficient, real-world applications.
             </p>
 
-            <div className="flex flex-wrap items-center gap-6 pt-6">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 pt-4 sm:pt-6">
               <a href="/Resume/Resume.pdf" rel="noopener noreferrer" download>
                 <div className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-full font-medium flex items-center transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer">
                   <Download className="mr-2 h-5 w-5" />
@@ -156,8 +156,8 @@ export default function Portfolio() {
           </div>
 
           {/* Right Image Content */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end relative mt-12 lg:mt-0 animate-in fade-in slide-in-from-right-8 duration-700 delay-200">
-            <div className="relative w-[300px] h-[380px] md:w-[400px] md:h-[500px] shrink-0">
+          <div className="lg:col-span-5 flex justify-center lg:justify-end relative mt-6 lg:mt-0 animate-in fade-in slide-in-from-right-8 duration-700 delay-200">
+            <div className="relative w-[260px] h-[320px] sm:w-[300px] sm:h-[380px] md:w-[380px] md:h-[480px] shrink-0">
               <div className="absolute inset-0 bg-white rounded-[2rem] overflow-hidden shadow-2xl z-10 flex items-center justify-center border border-gray-100 group">
                 <img
                   src="/profile.png"
@@ -210,11 +210,11 @@ export default function Portfolio() {
             <div className="w-16 h-px bg-gray-400 mx-auto mt-8"></div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-16 relative">
+          <div className="grid md:grid-cols-2 gap-10 md:gap-16 relative">
             {/* Vertical divider line */}
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 transform -translate-x-1/2"></div>
 
-            <div className="pr-8">
+            <div className="md:pr-8">
               <h3 className="text-2xl font-light text-gray-800 mb-8">Education</h3>
               <div className="space-y-6">
                 <div>
@@ -233,7 +233,7 @@ export default function Portfolio() {
               </div>
             </div>
 
-            <div className="pl-8">
+            <div className="md:pl-8">
               <h3 className="text-2xl font-light text-gray-800 mb-8">HSE (12th) and SSLC (10th)</h3>
               <div className="space-y-6">
                 <div>
@@ -261,7 +261,7 @@ export default function Portfolio() {
             <div className="w-16 h-px bg-gray-400 mx-auto mt-8"></div>
           </div>
 
-          <div className="grid grid-cols-4 md:grid-cols-4 gap-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6 sm:gap-8 max-w-5xl mx-auto">
             {[
               {
                 name: "HTML5",
@@ -592,7 +592,7 @@ export default function Portfolio() {
             <div className="w-16 h-px bg-gray-400 mx-auto mt-8"></div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-16">
             {/* First Row */}
             <div className="text-center">
               <div className="mb-6">
@@ -715,8 +715,8 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
+      <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-2xl lg:max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-normal text-gray-800 mb-6">STAY CONNECTED</h2>
             <p className="text-gray-600 text-lg mb-8">Get in touch with me !</p>
