@@ -587,13 +587,6 @@ export default function Portfolio() {
 
             {/* FITCLUB Project */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="bg-black rounded-lg overflow-hidden">
-                <img
-                  src="/Fitness.png"
-                  alt="FITCLUB Project"
-                  className="w-full h-64 object-cover"
-                />
-              </div>
               <div>
                 <h3 className="text-2xl font-semibold text-teal-500 mb-4">FITCLUB</h3>
                 <p className="text-gray-700 leading-relaxed mb-6">
@@ -607,6 +600,13 @@ export default function Portfolio() {
                   <p className="text-gray-800 font-medium mb-2">Tech Stack:</p>
                   <p className="text-gray-600">HTML, CSS, JavaScript</p>
                 </div>
+              </div>
+              <div className="bg-black rounded-lg overflow-hidden">
+                <img
+                  src="/Fitness.png"
+                  alt="FITCLUB Project"
+                  className="w-full h-64 object-cover"
+                />
               </div>
             </div>
 
