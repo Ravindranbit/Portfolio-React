@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Download, Linkedin, Github } from "lucide-react"
+import { Download, Linkedin, Github, User, Mail, MessageSquare, Send, Tag } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function Portfolio() {
@@ -10,7 +10,9 @@ export default function Portfolio() {
   useEffect(() => {
     const handleScroll = () => {
       const sections = ["home", "about", "profile", "skills", "project", "contact"]
-      const scrollPosition = window.scrollY + 100
+      const scrollTrigger = window.scrollY + (window.innerHeight / 2)
+      
+      let currentSection = "home"
 
       for (const section of sections) {
         const element = document.getElementById(section)
@@ -18,15 +20,23 @@ export default function Portfolio() {
           const offsetTop = element.offsetTop
           const offsetHeight = element.offsetHeight
 
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
+          if (scrollTrigger >= offsetTop && scrollTrigger < offsetTop + offsetHeight) {
+            currentSection = section
           }
         }
       }
+      
+      // If we are at the very bottom of the page, force "contact" as active
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+        currentSection = "contact"
+      }
+      
+      setActiveSection(currentSection)
     }
 
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll() // Trigger once to set correct state instantly
+    
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -39,62 +49,136 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
-        <div className="w-full px-0">
-          <div className="flex justify-between items-center py-4 px-4">
-            <div className="text-2xl font-normal" style={{ color: '#0C1323' }}>Portfolio</div>
-            <div className="flex space-x-6">
-              {[
-                { id: "about", label: "About" },
-                { id: "profile", label: "Profile" },
-                { id: "skills", label: "Skills" },
-                { id: "project", label: "Project" },
-                { id: "contact", label: "Contact" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="transition-colors"
-                  style={{ 
-                    color: activeSection === item.id ? '#0C1323' : '#0C1323'
-                  }}
-                  onMouseEnter={(e) => e.target.style.opacity = '0.7'}
-                  onMouseLeave={(e) => e.target.style.opacity = '1'}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </div>
+      {/* Top Left Logo */}
+      <div 
+        className="fixed top-5 left-6 lg:top-8 lg:left-10 z-50 cursor-pointer group hidden sm:block pointer-events-auto"
+        onClick={() => scrollToSection('home')}
+      >
+        <div 
+          className="text-4xl md:text-5xl font-normal tracking-wide text-gray-900 drop-shadow-sm group-hover:text-teal-600 transition-colors duration-300"
+          style={{ fontFamily: 'var(--font-great-vibes)' }}
+        >
+          Portfolio
         </div>
-      </nav>
+      </div>
+
+      {/* Navigation */}
+      <div className="fixed top-4 sm:top-8 inset-x-0 flex justify-center z-50 px-4 pointer-events-none">
+        <nav className="pointer-events-auto bg-white/70 backdrop-blur-2xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-full p-1.5 flex items-center transition-all duration-500">
+          
+          <div className="flex items-center gap-1 sm:gap-2">
+            {[
+              { id: "about", label: "About" },
+              { id: "profile", label: "Profile" },
+              { id: "skills", label: "Skills" },
+              { id: "project", label: "Project" },
+              { id: "contact", label: "Contact" },
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`relative px-4 sm:px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-500 group ${
+                  activeSection === item.id 
+                    ? 'text-white' 
+                    : 'text-gray-500 hover:text-gray-900'
+                }`}
+              >
+                {/* Active Indicator */}
+                <div 
+                  className={`absolute inset-0 bg-gray-900 rounded-full transition-all duration-500 ease-out z-0 ${
+                    activeSection === item.id ? 'opacity-100 scale-100 shadow-md' : 'opacity-0 scale-90'
+                  }`} 
+                />
+                {/* Hover Background (inactive only) */}
+                <div 
+                  className={`absolute inset-0 bg-gray-100 rounded-full transition-all duration-300 z-0 ${
+                    activeSection === item.id ? 'opacity-0' : 'opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100'
+                  }`} 
+                />
+                
+                {/* Label Text */}
+                <span className="relative z-10 transition-transform duration-300 inline-block group-hover:scale-105">
+                  {item.label}
+                </span>
+              </button>
+            ))}
+          </div>
+        </nav>
+      </div>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center relative px-6 lg:px-8" style={{ backgroundColor: '#0C1323' }}>
-        <div className="text-center text-white max-w-4xl mx-auto">
-          <h1 className="text-6xl md:text-8xl font-light mb-8 leading-tight">Ravindran G</h1>
-          <p className="text-xl md:text-2xl mb-12 font-light max-w-3xl mx-auto px-4">
-            " I'm not just learning to code — I'm learning to solve. "
-          </p>
-          <div className="flex flex-col items-center space-y-6">
-            <a href="/Resume/Resume.pdf" rel="noopener noreferrer" download>
-              <Button className="bg-gray-800/80 hover:bg-gray-700 text-white px-8 py-3 rounded-full flex items-center">
-                <Download className="mr-2 h-4 w-4" />
-                MY RESUME
-              </Button>
-            </a>
-            <div className="flex justify-center space-x-4">
-              <a href="https://www.linkedin.com/in/g-ravindran-706962319/" target="_blank" rel="noopener noreferrer">
-                <Button variant="ghost" size="icon" className="bg-gray-800/50 hover:bg-gray-700/50 text-white">
-                  <Linkedin className="h-5 w-5" />
-                </Button>
+      <section id="home" className="min-h-screen flex items-center relative overflow-hidden bg-white pt-20">
+
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10 px-6 lg:px-12 py-20">
+
+          {/* Left Text Content */}
+          <div className="lg:col-span-7 text-left space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className="space-y-4">
+              <span className="text-teal-600 font-semibold tracking-widest uppercase text-sm">
+                Software Engineer & Student
+              </span>
+              <h1 className="text-6xl md:text-8xl tracking-tight text-gray-900 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+                Ravindran G
+              </h1>
+            </div>
+
+            <div className="w-16 h-1 bg-gray-900 rounded-full"></div>
+
+            <p className="text-xl md:text-2xl text-gray-600 font-light max-w-2xl leading-relaxed italic border-l-4 border-teal-500 pl-4">
+              "I'm not just learning to code — I'm learning to solve."
+            </p>
+
+            <p className="text-lg text-gray-500 max-w-lg leading-relaxed font-normal">
+              Passionate about Full Stack Development, distributed systems, and crafting scalable solutions. Exploring modern cloud infrastructure and building efficient, real-world applications.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-6 pt-6">
+              <a href="/Resume/Resume.pdf" rel="noopener noreferrer" download>
+                <div className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-full font-medium flex items-center transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer">
+                  <Download className="mr-2 h-5 w-5" />
+                  Download Resume
+                </div>
               </a>
-              <Button variant="ghost" size="icon" className="bg-gray-800/50 hover:bg-gray-700/50 text-white">
-                <a href="https://github.com/Ravindranbit" target="_blank" rel="noopener noreferrer">
-                  <Github className="h-5 w-5" />
+
+              <div className="flex space-x-4">
+                <a href="https://www.linkedin.com/in/g-ravindran-706962319/" target="_blank" rel="noopener noreferrer">
+                  <div className="w-14 h-14 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:text-gray-900 hover:border-gray-900 hover:bg-gray-50 transition-all duration-300 cursor-pointer bg-white">
+                    <Linkedin className="h-5 w-5" />
+                  </div>
                 </a>
-              </Button>
+                <a href="https://github.com/Ravindranbit" target="_blank" rel="noopener noreferrer">
+                  <div className="w-14 h-14 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:text-gray-900 hover:border-gray-900 hover:bg-gray-50 transition-all duration-300 cursor-pointer bg-white">
+                    <Github className="h-5 w-5" />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Image Content */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end relative mt-12 lg:mt-0 animate-in fade-in slide-in-from-right-8 duration-700 delay-200">
+            <div className="relative w-[300px] h-[380px] md:w-[400px] md:h-[500px] shrink-0">
+              <div className="absolute inset-0 bg-white rounded-[2rem] overflow-hidden shadow-2xl z-10 flex items-center justify-center border border-gray-100 group">
+                <img
+                  src="/profile.png"
+                  alt="Ravindran G"
+                  className="w-full h-full object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
+                  onError={(e) => {
+                    const parent = e.currentTarget.parentElement;
+                    if (parent) {
+                      e.currentTarget.style.display = 'none';
+                      parent.innerHTML = `
+                        <div class="flex flex-col items-center justify-center text-center p-6 space-y-3">
+                          <svg class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                          <span class="text-gray-500 text-sm font-medium">Add <b>profile.png</b> to public</span>
+                        </div>
+                      `;
+                    }
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -328,6 +412,38 @@ export default function Portfolio() {
                   </div>
                 ),
               },
+              {
+                name: "Flutter",
+                icon: (
+                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100">
+                    <img src="/Flutter.png" alt="Flutter" className="w-12 h-12 object-contain" />
+                  </div>
+                ),
+              },
+              {
+                name: "Dart",
+                icon: (
+                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100 overflow-hidden">
+                    <img src="/dart.png" alt="Dart" className="w-full h-full object-cover" />
+                  </div>
+                ),
+              },
+              {
+                name: "Jira",
+                icon: (
+                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100 overflow-hidden">
+                    <img src="/jira.png" alt="Jira" className="w-full h-full object-cover" />
+                  </div>
+                ),
+              },
+              {
+                name: "PostgreSQL",
+                icon: (
+                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100">
+                    <img src="/postgresql.png" alt="PostgreSQL" className="w-12 h-12 object-contain" />
+                  </div>
+                ),
+              },
             ].map((skill, index) => (
               <div key={index} className="text-center group hover:scale-105 transition-all duration-300">
                 <div className="flex justify-center mb-4">{skill.icon}</div>
@@ -348,6 +464,95 @@ export default function Portfolio() {
           </div>
 
           <div className="space-y-20">
+            {/* Nyx Project */}
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative">
+                <img
+                  src="/nyx.png"
+                  alt="Nyx Project"
+                  className="w-full h-auto object-contain rounded-lg relative z-10"
+                  onError={(e) => { e.currentTarget.style.display = 'none' }}
+                />
+                <div className="absolute inset-0 flex items-center justify-center text-gray-400 z-0 bg-gray-200">
+                  <span>Nyx Preview</span>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold text-teal-500 mb-4">Nyx – Lost & Found</h3>
+                <p className="text-gray-700 leading-relaxed mb-6">
+                  Developed a cross-platform mobile application using Flutter for reporting and discovering lost and found items. Built a responsive admin dashboard using React for content moderation and integrated frontend applications with Go-based backend services via RESTful APIs for real-time data interaction. Designed intuitive UI/UX workflows to enable seamless item posting, browsing, and management.
+                </p>
+                <div className="mb-4">
+                  <p className="text-gray-800 font-medium mb-2">Features:</p>
+                  <p className="text-gray-600">Admin Dashboard, RESTful APIs, Cross-platform Support, UI/UX Workflows</p>
+                </div>
+                <div>
+                  <p className="text-gray-800 font-medium mb-2">Tech Stack:</p>
+                  <p className="text-gray-600">Flutter, React, Go, PostgreSQL</p>
+                </div>
+              </div>
+            </div>
+
+            {/* AcademyAI Project */}
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="order-2 md:order-1">
+                <h3 className="text-2xl font-semibold text-teal-500 mb-4">AcademyAI</h3>
+                <p className="text-gray-700 leading-relaxed mb-6">
+                  A multilingual AI-driven academic assistant platform built to simplify complex educational content and improve student productivity. Implemented OCR-based document extraction, AI-powered summarization, automated scholarship discovery, and structured exam-preparation workflows. Designed an intelligent chatbot supporting 10+ Indian languages to enhance accessibility for diverse learners.
+                </p>
+                <div className="mb-4">
+                  <p className="text-gray-800 font-medium mb-2">Features:</p>
+                  <p className="text-gray-600">OCR Document Extraction, AI Summarization, Multilingual Chatbot (10+ languages)</p>
+                </div>
+                <div>
+                  <p className="text-gray-800 font-medium mb-2">Tech Stack:</p>
+                  <p className="text-gray-600">Next.js, MongoDB</p>
+                </div>
+              </div>
+              <div className="order-1 md:order-2">
+                <div className="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative">
+                  <img
+                    src="/academyai.png"
+                    alt="AcademyAI Project"
+                    className="w-full h-auto object-contain rounded-lg relative z-10"
+                    onError={(e) => { e.currentTarget.style.display = 'none' }}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center text-gray-400 z-0 bg-gray-200">
+                    <span>AcademyAI Preview</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Explore Math Project */}
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative">
+                <img
+                  src="/exploremath.png"
+                  alt="Explore Math Project"
+                  className="w-full h-auto object-contain rounded-lg relative z-10"
+                  onError={(e) => { e.currentTarget.style.display = 'none' }}
+                />
+                <div className="absolute inset-0 flex items-center justify-center text-gray-400 z-0 bg-gray-200">
+                  <span>Explore Math Preview</span>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold text-teal-500 mb-4">Explore Math</h3>
+                <p className="text-gray-700 leading-relaxed mb-6">
+                  Developed a full-stack web application to help users learn fundamental mathematical concepts through interactive modules and real-time problem-solving exercises. Built dynamic and responsive user interfaces using React for an engaging learning experience. Developed backend services using Express.js and integrated MongoDB for efficient storage and retrieval of user data, enabling scalable progress tracking and content management.
+                </p>
+                <div className="mb-4">
+                  <p className="text-gray-800 font-medium mb-2">Features:</p>
+                  <p className="text-gray-600">Interactive Learning Modules, Real-time Problem Solving, User Progress Tracking, RESTful APIs, Responsive UI/UX</p>
+                </div>
+                <div>
+                  <p className="text-gray-800 font-medium mb-2">Tech Stack:</p>
+                  <p className="text-gray-600">React, Express.js, MongoDB</p>
+                </div>
+              </div>
+            </div>
+
             {/* FITCLUB Project */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="bg-black rounded-lg overflow-hidden">
@@ -360,11 +565,7 @@ export default function Portfolio() {
               <div>
                 <h3 className="text-2xl font-semibold text-teal-500 mb-4">FITCLUB</h3>
                 <p className="text-gray-700 leading-relaxed mb-6">
-                  This project is a sleek and modern fitness website designed to provide an engaging platform for
-                  showcasing various aspects of a fitness center. It highlights training programs, trainer profiles,
-                  sessions, and detailed membership plans. The website is fully responsive, ensuring a seamless user
-                  experience across all device types from desktops to smartphones...{" "}
-                  <span className="text-teal-500 cursor-pointer">Read more</span>
+                  This project is a sleek and modern fitness website designed to provide an engaging platform for showcasing various aspects of a fitness center. It highlights training programs, trainer profiles, sessions, and detailed membership plans. The website is fully responsive, ensuring a seamless user experience across all device types from desktops to smartphones.
                 </p>
                 <div className="mb-4">
                   <p className="text-gray-800 font-medium mb-2">Features:</p>
@@ -377,67 +578,7 @@ export default function Portfolio() {
               </div>
             </div>
 
-            {/* CONNECT Project */}
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="order-2 md:order-1">
-                <h3 className="text-2xl font-semibold text-teal-500 mb-4">CONNECT</h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  Connect is a full-stack web application designed to bring like-minded individuals together based on
-                  shared interests, hobbies, and personal or professional goals. Whether users are looking for study
-                  partners, collaborators for creative projects, or simply want to meet new people who share similar
-                  passions, the platform offers a simple and effective way to form meaningful connections...{" "}
-                  <span className="text-teal-500 cursor-pointer">Read more</span>
-                </p>
-                <div className="mb-4">
-                  <p className="text-gray-800 font-medium mb-2">Features:</p>
-                  <p className="text-gray-600">Real-time Messaging, User Authentication, Matching Algorithm</p>
-                </div>
-                <div>
-                  <p className="text-gray-800 font-medium mb-2">Tech Stack:</p>
-                  <p className="text-gray-600">MongoDB, Express.js, React, Node.js</p>
-                </div>
-              </div>
-              <div className="order-1 md:order-2">
-                <div className="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
-                  <img
-                    src="/connect.jpg"
-                    alt="CONNECT Project"
-                    className="w-64 h-64 object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-            </div>
 
-            {/* PONDY Project */}
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="bg-gray-100 rounded-lg overflow-hidden">
-                <img
-                  src="/Pondy.png"
-                  alt="PONDY Project"
-                  className="w-full h-64 object-cover"
-                />
-              </div>
-              <div>
-                <h3 className="text-2xl font-semibold text-teal-500 mb-4">PONDY</h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  Navigating the modern property market requires a digital platform that's fast, functional, and
-                  user-focused—this real estate website delivers just that. Tailored for showcasing a wide range of
-                  residential and commercial listings, the site offers users an intuitive experience to explore
-                  properties based on location, price, and features...{" "}
-                  <span className="text-teal-500 cursor-pointer">Read more</span>
-                </p>
-                <div className="mb-4">
-                  <p className="text-gray-800 font-medium mb-2">Features:</p>
-                  <p className="text-gray-600">
-                    Admin Dashboard, Map Integration, Property Filtering, Real-time Updates
-                  </p>
-                </div>
-                <div>
-                  <p className="text-gray-800 font-medium mb-2">Tech Stack:</p>
-                  <p className="text-gray-600">Supabase, React.js, TypeScript, JavaScript</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -455,14 +596,29 @@ export default function Portfolio() {
             {/* First Row */}
             <div className="text-center">
               <div className="mb-6">
-                <svg className="w-16 h-16 mx-auto text-blue-500" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" />
+                <svg
+                  className="w-16 h-16 mx-auto text-blue-500"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+                  <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
+                  <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4" />
+                  <path d="M17.599 6.5a3 3 0 0 0 .399-1.375" />
+                  <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" />
+                  <path d="M3.477 10.896a4 4 0 0 1 .585-.396" />
+                  <path d="M19.938 10.5a4 4 0 0 1 .585.396" />
+                  <path d="M6 18a4 4 0 0 1-1.967-.516" />
+                  <path d="M19.967 17.484A4 4 0 0 1 18 18" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">Serverless Cloud Computing</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">Reinforcement Learning</h3>
               <p className="text-gray-600 leading-relaxed text-sm">
-                Research paper on scalable, low-maintenance cloud architectures. Currently ongoing project exploring
-                modern serverless technologies and their applications in enterprise environments.
+                Used Q-learning to enhance automated test case generation from Agile requirements, enabling adaptive and real-time optimization of testing workflows.
               </p>
             </div>
 
@@ -481,8 +637,16 @@ export default function Portfolio() {
 
             <div className="text-center">
               <div className="mb-6">
-                <svg className="w-16 h-16 mx-auto text-green-500" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+                <svg
+                  className="w-16 h-16 mx-auto text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
+                >
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-4">Boyer-Moore Algorithm</h3>
@@ -559,69 +723,62 @@ export default function Portfolio() {
             <div className="w-24 h-0.5 bg-gray-800 mx-auto"></div>
           </div>
 
-          <form className="max-w-2xl mx-auto space-y-0">
+          <form className="max-w-2xl mx-auto space-y-5">
             {/* Name Field */}
-            <div className="flex border border-gray-300">
-              <div className="flex items-center justify-center w-12 bg-gray-100 border-r border-gray-300">
-                <svg className="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none z-10">
+                <User className="h-5 w-5 text-gray-400 group-focus-within:text-teal-500 transition-colors" />
               </div>
               <input
                 type="text"
-                placeholder="Name"
-                className="flex-1 px-4 py-3 bg-white text-gray-700 placeholder-gray-400 focus:outline-none"
+                placeholder="Your Name"
+                className="w-full pl-14 pr-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-sm"
               />
             </div>
 
             {/* Email Field */}
-            <div className="flex border border-gray-300 border-t-0">
-              <div className="flex items-center justify-center w-12 bg-gray-100 border-r border-gray-300">
-                <svg className="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                </svg>
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none z-10">
+                <Mail className="h-5 w-5 text-gray-400 group-focus-within:text-teal-500 transition-colors" />
               </div>
               <input
                 type="email"
-                placeholder="Email address"
-                className="flex-1 px-4 py-3 bg-white text-gray-700 placeholder-gray-400 focus:outline-none"
+                placeholder="Email Address"
+                className="w-full pl-14 pr-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-sm"
               />
             </div>
 
             {/* Subject Field */}
-            <div className="flex border border-gray-300 border-t-0">
-              <div className="flex items-center justify-center w-12 bg-gray-100 border-r border-gray-300">
-                <svg className="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M5.5 7A1.5 1.5 0 004 8.5v7A1.5 1.5 0 005.5 17h13a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0018.5 7h-13z" />
-                </svg>
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none z-10">
+                <Tag className="h-5 w-5 text-gray-400 group-focus-within:text-teal-500 transition-colors" />
               </div>
               <input
                 type="text"
                 placeholder="Subject"
-                className="flex-1 px-4 py-3 bg-white text-gray-700 placeholder-gray-400 focus:outline-none"
+                className="w-full pl-14 pr-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-sm"
               />
             </div>
 
             {/* Message Field */}
-            <div className="flex border border-gray-300 border-t-0">
-              <div className="flex items-start justify-center w-12 bg-gray-100 border-r border-gray-300 pt-4">
-                <svg className="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
-                </svg>
+            <div className="relative group">
+              <div className="absolute top-5 left-0 pl-5 flex items-start pointer-events-none z-10">
+                <MessageSquare className="h-5 w-5 text-gray-400 group-focus-within:text-teal-500 transition-colors" />
               </div>
               <textarea
-                placeholder="Your Message"
-                rows={6}
-                className="flex-1 px-4 py-3 bg-white text-gray-700 placeholder-gray-400 focus:outline-none resize-none"
+                placeholder="Your Message..."
+                rows={5}
+                className="w-full pl-14 pr-4 py-5 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-sm resize-none"
               />
             </div>
 
             {/* Send Button */}
-            <div className="pt-6">
+            <div className="pt-4 flex justify-center">
               <button
                 type="submit"
-                className="bg-teal-400 hover:bg-teal-500 text-white px-6 py-2.5 text-sm font-medium transition-colors"
+                className="inline-flex items-center justify-center bg-gray-900 hover:bg-gray-800 text-white px-10 py-4 rounded-full font-medium text-base transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 cursor-pointer"
               >
+                <Send className="mr-2.5 h-5 w-5" />
                 Send Message
               </button>
             </div>
