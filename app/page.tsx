@@ -431,8 +431,32 @@ export default function Portfolio() {
               {
                 name: "Jira",
                 icon: (
-                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100 overflow-hidden">
-                    <img src="/jira.png" alt="Jira" className="w-full h-full object-cover" />
+                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100">
+                    <img src="/jira.png" alt="Jira" className="w-12 h-12 object-contain" />
+                  </div>
+                ),
+              },
+              {
+                name: "Docker",
+                icon: (
+                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100">
+                    <img src="/docker.png" alt="Docker" className="w-12 h-12 object-contain" />
+                  </div>
+                ),
+              },
+              {
+                name: "TypeScript",
+                icon: (
+                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100">
+                    <img src="/typescript.png" alt="TypeScript" className="w-12 h-12 object-contain" />
+                  </div>
+                ),
+              },
+              {
+                name: "Next.js",
+                icon: (
+                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm border border-gray-100">
+                    <img src="/nextjs.png" alt="Next.js" className="w-12 h-12 object-contain" />
                   </div>
                 ),
               },
