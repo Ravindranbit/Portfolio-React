@@ -49,13 +49,13 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Left Logo */}
+      {/* Top Left Logo - only show on sm+ */}
       <div 
-        className="fixed top-5 left-6 lg:top-8 lg:left-10 z-50 cursor-pointer group hidden sm:block pointer-events-auto"
+        className="fixed top-5 left-4 sm:left-6 lg:top-8 lg:left-10 z-50 cursor-pointer group hidden sm:block pointer-events-auto"
         onClick={() => scrollToSection('home')}
       >
         <div 
-          className="text-4xl md:text-5xl font-normal tracking-wide text-gray-900 drop-shadow-sm group-hover:text-teal-600 transition-colors duration-300"
+          className="text-3xl md:text-4xl font-normal tracking-wide text-gray-900 drop-shadow-sm group-hover:text-teal-600 transition-colors duration-300"
           style={{ fontFamily: 'var(--font-great-vibes)' }}
         >
           Portfolio
@@ -63,10 +63,10 @@ export default function Portfolio() {
       </div>
 
       {/* Navigation */}
-      <div className="fixed top-3 sm:top-8 inset-x-0 flex justify-center z-50 px-2 pointer-events-none">
+      <div className="fixed top-3 sm:top-8 inset-x-0 flex justify-center z-50 px-1 sm:px-4 pointer-events-none">
         <nav className="pointer-events-auto bg-white/70 backdrop-blur-2xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-full p-1 sm:p-1.5 flex items-center transition-all duration-500">
           
-          <div className="flex items-center gap-0.5 sm:gap-2">
+          <div className="flex items-center">
             {[
               { id: "about", label: "About" },
               { id: "profile", label: "Profile" },
@@ -77,7 +77,7 @@ export default function Portfolio() {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`relative px-2.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-500 group ${
+                className={`relative px-2 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-[10px] sm:text-sm font-semibold transition-all duration-500 group ${
                   activeSection === item.id 
                     ? 'text-white' 
                     : 'text-gray-500 hover:text-gray-900'
@@ -107,28 +107,28 @@ export default function Portfolio() {
       </div>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center relative overflow-hidden bg-white pt-24 sm:pt-20">
+      <section id="home" className="min-h-screen flex items-center relative overflow-hidden bg-white pt-16 sm:pt-20">
 
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center relative z-10 px-6 lg:px-12 py-12 sm:py-20">
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center relative z-10 px-5 sm:px-6 lg:px-12 py-8 sm:py-16 lg:py-20">
 
           {/* Left Text Content */}
-          <div className="lg:col-span-7 text-center lg:text-left space-y-6 sm:space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <div className="space-y-4">
-              <span className="text-teal-600 font-semibold tracking-widest uppercase text-sm">
-                Software Engineer & Student
+          <div className="lg:col-span-7 text-center lg:text-left space-y-5 sm:space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className="space-y-3">
+              <span className="text-teal-600 font-semibold tracking-widest uppercase text-xs sm:text-sm">
+                Software Engineer &amp; Student
               </span>
-              <h1 className="text-5xl sm:text-6xl md:text-8xl tracking-tight text-gray-900 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
+              <h1 className="text-4xl sm:text-6xl md:text-8xl tracking-tight text-gray-900 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
                 Ravindran G
               </h1>
             </div>
 
             <div className="w-16 h-1 bg-gray-900 rounded-full mx-auto lg:mx-0"></div>
 
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 font-light max-w-2xl leading-relaxed italic border-l-4 border-teal-500 pl-4 text-left">
+            <p className="text-base sm:text-xl md:text-2xl text-gray-600 font-light max-w-2xl leading-relaxed italic border-l-4 border-teal-500 pl-4 text-left">
               "I'm not just learning to code — I'm learning to solve."
             </p>
 
-            <p className="text-base sm:text-lg text-gray-500 max-w-lg leading-relaxed font-normal">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-500 max-w-lg leading-relaxed font-normal mx-auto lg:mx-0">
               Passionate about Full Stack Development, distributed systems, and crafting scalable solutions. Exploring modern cloud infrastructure and building efficient, real-world applications.
             </p>
 
@@ -185,12 +185,12 @@ export default function Portfolio() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6 lg:px-8">
+      <section id="about" className="py-14 sm:py-20 px-5 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-light text-gray-800 mb-4">ABOUT ME</h2>
           <p className="text-gray-600 mb-8">In a Few Words</p>
           <div className="w-16 h-px bg-gray-400 mx-auto mb-12"></div>
-          <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto text-left sm:text-center">
             I'm a Computer Science student with a passion for turning ideas into real, working products. I'm currently
             hands-on with full-stack development, mainly using React.js, Node.js, Express, and MongoDB. Along with my
             technical skills, I'm a strong communicator and a natural organizer — I enjoy leading teams, coordinating
@@ -261,7 +261,7 @@ export default function Portfolio() {
             <div className="w-16 h-px bg-gray-400 mx-auto mt-8"></div>
           </div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6 sm:gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
             {[
               {
                 name: "HTML5",
