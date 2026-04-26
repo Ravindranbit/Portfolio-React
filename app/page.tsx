@@ -224,7 +224,7 @@ export default function Portfolio() {
                     Amrita School of Computing, Amrita Vishwa Vidyapeetham, Coimbatore
                   </p>
                   <p className="text-gray-700 leading-relaxed">
-                    pursuing B.Tech in Computer Science and Engineering at Amrita School of Computing. Exploring
+                    Pursuing B.Tech in Computer Science and Engineering at Amrita School of Computing. Exploring
                     full-stack development, cloud computing, and real-world tech applications. Actively involved in
                     hackathons and hands-on projects. College life has been a journey of continuous learning and
                     innovation.
