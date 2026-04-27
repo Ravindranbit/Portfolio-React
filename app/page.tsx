@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Download, Linkedin, Github, User, Mail, MessageSquare, Send, Tag } from "lucide-react"
+import { Download, Linkedin, Github, User, Mail, MessageSquare, Send, Tag, X, CheckCircle2, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function Portfolio() {
@@ -47,6 +47,15 @@ export default function Portfolio() {
     
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  useEffect(() => {
+    if (status.type) {
+      const timer = setTimeout(() => {
+        setStatus({ type: null, message: '' })
+      }, 4000)
+      return () => clearTimeout(timer)
+    }
+  }, [status])
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -103,6 +112,33 @@ export default function Portfolio() {
           Portfolio
         </div>
       </div>
+
+      {/* Toast Notification */}
+      {status.type && (
+        <div className={`fixed top-24 right-5 sm:right-10 z-[100] max-w-[320px] sm:max-w-md animate-in slide-in-from-right-full duration-500 shadow-2xl rounded-2xl border p-4 flex items-start space-x-4 bg-white ${
+          status.type === 'success' ? 'border-teal-100' : 'border-red-100'
+        }`}>
+          <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
+            status.type === 'success' ? 'bg-teal-50 text-teal-600' : 'bg-red-50 text-red-600'
+          }`}>
+            {status.type === 'success' ? <CheckCircle2 className="h-6 w-6" /> : <AlertCircle className="h-6 w-6" />}
+          </div>
+          <div className="flex-1 pt-0.5">
+            <p className="text-sm font-semibold text-gray-900">
+              {status.type === 'success' ? 'Success' : 'Error'}
+            </p>
+            <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+              {status.message}
+            </p>
+          </div>
+          <button 
+            onClick={() => setStatus({ type: null, message: '' })}
+            className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      )}
 
       {/* Navigation */}
       <div className="fixed top-3 sm:top-8 inset-x-0 flex justify-center z-50 px-1 sm:px-4 pointer-events-none">
@@ -798,17 +834,6 @@ export default function Portfolio() {
           </div>
 
           <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-5">
-            {/* Status Message */}
-            {status.type && (
-              <div className={`p-4 rounded-2xl text-center text-sm font-medium animate-in fade-in slide-in-from-top-4 duration-500 mb-6 ${
-                status.type === 'success' 
-                  ? 'bg-teal-50 text-teal-700 border border-teal-100' 
-                  : 'bg-red-50 text-red-700 border border-red-100'
-              }`}>
-                {status.message}
-              </div>
-            )}
-
             {/* Name Field */}
             <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none z-10">
