@@ -77,7 +77,7 @@ export default function Portfolio() {
       const data = await response.json()
 
       if (response.ok) {
-        setStatus({ type: 'success', message: 'Message sent successfully! I will get back to you soon.' })
+        setStatus({ type: 'success', message: 'Thank you for contacting! I have received your message and will get back to you within 24 hours.' })
         setFormData({ name: '', email: '', subject: '', message: '' })
       } else {
         setStatus({ type: 'error', message: data.error || 'Failed to send message. Please try again.' })
@@ -798,6 +798,17 @@ export default function Portfolio() {
           </div>
 
           <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-5">
+            {/* Status Message */}
+            {status.type && (
+              <div className={`p-4 rounded-2xl text-center text-sm font-medium animate-in fade-in slide-in-from-top-4 duration-500 mb-6 ${
+                status.type === 'success' 
+                  ? 'bg-teal-50 text-teal-700 border border-teal-100' 
+                  : 'bg-red-50 text-red-700 border border-red-100'
+              }`}>
+                {status.message}
+              </div>
+            )}
+
             {/* Name Field */}
             <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none z-10">
@@ -861,15 +872,6 @@ export default function Portfolio() {
                 className="w-full pl-14 pr-4 py-5 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-sm resize-none"
               />
             </div>
-
-            {/* Status Message */}
-            {status.type && (
-              <div className={`p-4 rounded-xl text-center text-sm font-medium animate-in fade-in slide-in-from-top-2 duration-300 ${
-                status.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-              }`}>
-                {status.message}
-              </div>
-            )}
 
             {/* Send Button */}
             <div className="pt-4 flex justify-center">
