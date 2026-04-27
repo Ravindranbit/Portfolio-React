@@ -217,7 +217,7 @@ export default function Portfolio() {
               <a href="/Resume/Resume.pdf" rel="noopener noreferrer" download>
                 <div className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-full font-medium flex items-center transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer">
                   <Download className="mr-2 h-5 w-5" />
-                  Download Resume
+                  Resume
                 </div>
               </a>
 
@@ -579,19 +579,33 @@ export default function Portfolio() {
           <div className="space-y-20">
             {/* Nyx Project */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative">
+              <a 
+                href="https://nyx-admin.vercel.app/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative cursor-pointer group/project"
+              >
                 <img
                   src="/nyx.png"
                   alt="Nyx Project"
-                  className="w-full h-auto object-contain rounded-lg relative z-10"
+                  className="w-full h-auto object-contain rounded-lg relative z-10 transition-transform duration-500 group-hover/project:scale-105"
                   onError={(e) => { e.currentTarget.style.display = 'none' }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center text-gray-400 z-0 bg-gray-200">
                   <span>Nyx Preview</span>
                 </div>
-              </div>
+              </a>
               <div>
-                <h3 className="text-2xl font-semibold text-teal-500 mb-4">Nyx – Lost & Found</h3>
+                <a 
+                  href="https://nyx-admin.vercel.app/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block group/title"
+                >
+                  <h3 className="text-2xl font-semibold text-teal-500 mb-4 group-hover/title:text-teal-600 transition-colors">
+                    Nyx – Lost & Found
+                  </h3>
+                </a>
                 <p className="text-gray-700 leading-relaxed mb-6">
                   Developed a cross-platform mobile application using Flutter for reporting and discovering lost and found items. Built a responsive admin dashboard using React for content moderation and integrated frontend applications with Go-based backend services via RESTful APIs for real-time data interaction. Designed intuitive UI/UX workflows to enable seamless item posting, browsing, and management.
                 </p>
@@ -609,7 +623,16 @@ export default function Portfolio() {
             {/* AcademyAI Project */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="order-2 md:order-1">
-                <h3 className="text-2xl font-semibold text-teal-500 mb-4">AcademyAI</h3>
+                <a 
+                  href="https://educathon-liart.vercel.app/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block group/title"
+                >
+                  <h3 className="text-2xl font-semibold text-teal-500 mb-4 group-hover/title:text-teal-600 transition-colors">
+                    AcademyAI
+                  </h3>
+                </a>
                 <p className="text-gray-700 leading-relaxed mb-6">
                   A multilingual AI-driven academic assistant platform built to simplify complex educational content and improve student productivity. Implemented OCR-based document extraction, AI-powered summarization, automated scholarship discovery, and structured exam-preparation workflows. Designed an intelligent chatbot supporting 10+ Indian languages to enhance accessibility for diverse learners.
                 </p>
@@ -623,35 +646,54 @@ export default function Portfolio() {
                 </div>
               </div>
               <div className="order-1 md:order-2">
-                <div className="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative">
+                <a 
+                  href="https://educathon-liart.vercel.app/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative cursor-pointer group/project"
+                >
                   <img
                     src="/academyai.png"
                     alt="AcademyAI Project"
-                    className="w-full h-auto object-contain rounded-lg relative z-10"
+                    className="w-full h-auto object-contain rounded-lg relative z-10 transition-transform duration-500 group-hover/project:scale-105"
                     onError={(e) => { e.currentTarget.style.display = 'none' }}
                   />
                   <div className="absolute inset-0 flex items-center justify-center text-gray-400 z-0 bg-gray-200">
                     <span>AcademyAI Preview</span>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
 
             {/* Explore Math Project */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative">
+              <a 
+                href="https://basic-math-learning-webiste.vercel.app/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative cursor-pointer group/project"
+              >
                 <img
                   src="/exploremath.png"
                   alt="Explore Math Project"
-                  className="w-full h-auto object-contain rounded-lg relative z-10"
+                  className="w-full h-auto object-contain rounded-lg relative z-10 transition-transform duration-500 group-hover/project:scale-105"
                   onError={(e) => { e.currentTarget.style.display = 'none' }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center text-gray-400 z-0 bg-gray-200">
                   <span>Explore Math Preview</span>
                 </div>
-              </div>
+              </a>
               <div>
-                <h3 className="text-2xl font-semibold text-teal-500 mb-4">Explore Math</h3>
+                <a 
+                  href="https://basic-math-learning-webiste.vercel.app/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block group/title"
+                >
+                  <h3 className="text-2xl font-semibold text-teal-500 mb-4 group-hover/title:text-teal-600 transition-colors">
+                    Explore Math
+                  </h3>
+                </a>
                 <p className="text-gray-700 leading-relaxed mb-6">
                   Developed a full-stack web application to help users learn fundamental mathematical concepts through interactive modules and real-time problem-solving exercises. Built dynamic and responsive user interfaces using React for an engaging learning experience. Developed backend services using Express.js and integrated MongoDB for efficient storage and retrieval of user data, enabling scalable progress tracking and content management.
                 </p>
@@ -669,7 +711,16 @@ export default function Portfolio() {
             {/* FITCLUB Project */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h3 className="text-2xl font-semibold text-teal-500 mb-4">FITCLUB</h3>
+                <a 
+                  href="https://ravindranbit.github.io/Fitness/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block group/title"
+                >
+                  <h3 className="text-2xl font-semibold text-teal-500 mb-4 group-hover/title:text-teal-600 transition-colors">
+                    FITCLUB
+                  </h3>
+                </a>
                 <p className="text-gray-700 leading-relaxed mb-6">
                   This project is a sleek and modern fitness website designed to provide an engaging platform for showcasing various aspects of a fitness center. It highlights training programs, trainer profiles, sessions, and detailed membership plans. The website is fully responsive, ensuring a seamless user experience across all device types from desktops to smartphones.
                 </p>
@@ -682,13 +733,18 @@ export default function Portfolio() {
                   <p className="text-gray-600">HTML, CSS, JavaScript</p>
                 </div>
               </div>
-              <div className="bg-black rounded-lg overflow-hidden">
+              <a 
+                href="https://ravindranbit.github.io/Fitness/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-black rounded-lg overflow-hidden cursor-pointer group/project block"
+              >
                 <img
                   src="/Fitness.png"
                   alt="FITCLUB Project"
-                  className="w-full h-64 object-cover"
+                  className="w-full h-64 object-cover transition-transform duration-500 group-hover/project:scale-105"
                 />
-              </div>
+              </a>
             </div>
 
 
