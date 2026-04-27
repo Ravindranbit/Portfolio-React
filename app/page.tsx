@@ -101,7 +101,7 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-white">
       {/* Unified Header Background */}
-      <div className="fixed top-0 inset-x-0 h-24 bg-white/90 backdrop-blur-3xl z-40 pointer-events-none shadow-[0_1px_10px_rgba(0,0,0,0.02)]" />
+      <div className="fixed top-0 inset-x-0 h-24 bg-white/80 backdrop-blur-2xl z-40 pointer-events-none border-b border-white/50 shadow-[0_1px_10px_rgba(0,0,0,0.01)]" />
 
       {/* Top Left Logo - only show on sm+ */}
       <div 
