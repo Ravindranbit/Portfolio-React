@@ -261,7 +261,7 @@ export default function Portfolio() {
             <div className="w-16 h-px bg-gray-400 mx-auto mt-8"></div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
             {[
               {
                 name: "HTML5",
