@@ -6,6 +6,14 @@ import { Button } from "@/components/ui/button"
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [status, setStatus] = useState<{ type: 'success' | 'error' | null, message: string }>({ type: null, message: '' })
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  })
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,6 +52,40 @@ export default function Portfolio() {
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setStatus({ type: null, message: '' })
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setStatus({ type: 'success', message: 'Message sent successfully! I will get back to you soon.' })
+        setFormData({ name: '', email: '', subject: '', message: '' })
+      } else {
+        setStatus({ type: 'error', message: data.error || 'Failed to send message. Please try again.' })
+      }
+    } catch (error) {
+      setStatus({ type: 'error', message: 'An error occurred. Please check your connection and try again.' })
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -755,7 +797,7 @@ export default function Portfolio() {
             <div className="w-24 h-0.5 bg-gray-800 mx-auto"></div>
           </div>
 
-          <form className="max-w-2xl mx-auto space-y-5">
+          <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-5">
             {/* Name Field */}
             <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none z-10">
@@ -763,6 +805,10 @@ export default function Portfolio() {
               </div>
               <input
                 type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
                 placeholder="Your Name"
                 className="w-full pl-14 pr-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-sm"
               />
@@ -775,6 +821,10 @@ export default function Portfolio() {
               </div>
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
                 placeholder="Email Address"
                 className="w-full pl-14 pr-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-sm"
               />
@@ -787,6 +837,10 @@ export default function Portfolio() {
               </div>
               <input
                 type="text"
+                name="subject"
+                value={formData.subject}
+                onChange={handleInputChange}
+                required
                 placeholder="Subject"
                 className="w-full pl-14 pr-4 py-4 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-sm"
               />
@@ -798,20 +852,46 @@ export default function Portfolio() {
                 <MessageSquare className="h-5 w-5 text-gray-400 group-focus-within:text-teal-500 transition-colors" />
               </div>
               <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                required
                 placeholder="Your Message..."
                 rows={5}
                 className="w-full pl-14 pr-4 py-5 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-sm resize-none"
               />
             </div>
 
+            {/* Status Message */}
+            {status.type && (
+              <div className={`p-4 rounded-xl text-center text-sm font-medium animate-in fade-in slide-in-from-top-2 duration-300 ${
+                status.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+              }`}>
+                {status.message}
+              </div>
+            )}
+
             {/* Send Button */}
             <div className="pt-4 flex justify-center">
               <button
                 type="submit"
-                className="inline-flex items-center justify-center bg-gray-900 hover:bg-gray-800 text-white px-10 py-4 rounded-full font-medium text-base transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 cursor-pointer"
+                disabled={isSubmitting}
+                className={`inline-flex items-center justify-center bg-gray-900 hover:bg-gray-800 text-white px-10 py-4 rounded-full font-medium text-base transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed`}
               >
-                <Send className="mr-2.5 h-5 w-5" />
-                Send Message
+                {isSubmitting ? (
+                  <div className="flex items-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending...
+                  </div>
+                ) : (
+                  <>
+                    <Send className="mr-2.5 h-5 w-5" />
+                    Send Message
+                  </>
+                )}
               </button>
             </div>
           </form>
