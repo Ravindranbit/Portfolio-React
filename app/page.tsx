@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Download, Linkedin, Github, User, Mail, MessageSquare, Send, Tag, X, CheckCircle2, AlertCircle } from "lucide-react"
+import { Download, Linkedin, Github, User, Mail, MessageSquare, Send, Tag, X, Check, CheckCircle2, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function Portfolio() {
@@ -115,40 +115,28 @@ export default function Portfolio() {
 
       {/* Toast Notification */}
       {status.type && (
-        <div className={`fixed top-12 right-5 sm:right-10 z-[100] max-w-[340px] sm:max-w-md animate-in slide-in-from-right-8 duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.2)] rounded-3xl overflow-hidden border border-white/20 backdrop-blur-xl bg-gray-900/95 text-white flex items-center p-5 space-x-4`}>
-          <div className={`flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center rotate-3 transition-transform hover:rotate-0 duration-300 ${
-            status.type === 'success' ? 'bg-teal-500/20 text-teal-400' : 'bg-red-500/20 text-red-400'
+        <div className={`fixed top-4 right-4 z-[100] max-w-[320px] sm:max-w-md animate-in slide-in-from-top-5 duration-500 shadow-2xl rounded-2xl border p-4 flex items-start space-x-4 bg-white ${
+          status.type === 'success' ? 'border-teal-100' : 'border-red-100'
+        }`}>
+          <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
+            status.type === 'success' ? 'bg-teal-50 text-teal-600' : 'bg-red-50 text-red-600'
           }`}>
-            {status.type === 'success' ? <CheckCircle2 className="h-7 w-7" /> : <AlertCircle className="h-7 w-7" />}
+            {status.type === 'success' ? <Check className="h-6 w-6" /> : <AlertCircle className="h-6 w-6" />}
           </div>
-          <div className="flex-1 pr-6">
-            <p className="text-sm font-bold tracking-tight">
-              {status.type === 'success' ? 'Message Sent!' : 'Oops! Something went wrong'}
+          <div className="flex-1 pt-0.5">
+            <p className="text-sm font-semibold text-gray-900">
+              {status.type === 'success' ? 'Success' : 'Error'}
             </p>
-            <p className="text-[11px] sm:text-xs text-gray-400 mt-1 font-medium leading-relaxed">
+            <p className="text-xs text-gray-500 mt-1 leading-relaxed">
               {status.message}
             </p>
           </div>
           <button 
             onClick={() => setStatus({ type: null, message: '' })}
-            className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors p-1"
+            className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
           >
-            <X className="h-3.5 w-3.5" />
+            <X className="h-4 w-4" />
           </button>
-          
-          {/* Animated Progress Bar */}
-          <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-teal-500 to-emerald-400 animate-progress origin-left" 
-               style={{ width: '100%' }} />
-
-          <style jsx>{`
-            @keyframes progress {
-              from { transform: scaleX(1); }
-              to { transform: scaleX(0); }
-            }
-            .animate-progress {
-              animation: progress 4000ms linear forwards;
-            }
-          `}</style>
         </div>
       )}
 
