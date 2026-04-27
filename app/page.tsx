@@ -100,6 +100,10 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Unified Header Background */}
+      <div className="fixed top-0 inset-x-0 h-24 bg-white/40 backdrop-blur-md z-40 pointer-events-none" 
+           style={{ maskImage: 'linear-gradient(to bottom, black 70%, transparent)' }} />
+
       {/* Top Left Logo - only show on sm+ */}
       <div 
         className="fixed top-5 left-4 sm:left-6 lg:top-8 lg:left-10 z-50 cursor-pointer group hidden sm:block pointer-events-auto"
@@ -142,7 +146,7 @@ export default function Portfolio() {
 
       {/* Navigation */}
       <div className="fixed top-3 sm:top-8 inset-x-0 flex justify-center z-50 px-1 sm:px-4 pointer-events-none">
-        <nav className="pointer-events-auto bg-white/70 backdrop-blur-2xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-full p-1 sm:p-1.5 flex items-center transition-all duration-500">
+        <nav className="pointer-events-auto bg-white/80 backdrop-blur-2xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.06)] rounded-full p-1 sm:p-1.5 flex items-center transition-all duration-500">
           
           <div className="flex items-center">
             {[
