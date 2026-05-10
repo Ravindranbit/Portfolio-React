@@ -577,6 +577,49 @@ export default function Portfolio() {
           </div>
 
           <div className="space-y-20">
+            {/* 1092 Assist Project */}
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <a 
+                  href="https://ai-call-agent-i0u0.onrender.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block group/title"
+                >
+                  <h3 className="text-2xl font-semibold text-teal-500 mb-4 group-hover/title:text-teal-600 transition-colors">
+                    1092 Assist – AI Voice Agent
+                  </h3>
+                </a>
+                <p className="text-gray-700 leading-relaxed mb-6">
+                  Developed a production-grade multilingual AI voice agent for the Karnataka Government 1092 Helpline to replace legacy static IVR systems. Built a conversational engine capable of understanding citizen distress and requests across English, Hindi, Tamil, and Kannada using a hybrid AI architecture. Implemented an explicit "Verify Before Action" confirmation loop and a high-fidelity administrative dashboard for real-time telemetry, sentiment analysis, and seamless human-in-the-loop escalation.
+                </p>
+                <div className="mb-4">
+                  <p className="text-gray-800 font-medium mb-2">Features:</p>
+                  <p className="text-gray-600">Multilingual Support (English, Hindi, Tamil, Kannada), Emotion & Urgency Detection, Explicit Verification Loop, Human Takeover, Real-time Operations Dashboard, Hallucination Guardrails</p>
+                </div>
+                <div>
+                  <p className="text-gray-800 font-medium mb-2">Tech Stack:</p>
+                  <p className="text-gray-600">Node.js, Express, Twilio, Groq (Llama-3), NVIDIA (Sarvam-M), Redis, PostgreSQL</p>
+                </div>
+              </div>
+              <a 
+                href="https://ai-call-agent-i0u0.onrender.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative cursor-pointer group/project"
+              >
+                <img
+                  src="/1092-assist.png"
+                  alt="1092 Assist Project"
+                  className="w-full h-auto object-contain rounded-lg relative z-10 transition-transform duration-500 group-hover/project:scale-105"
+                  onError={(e) => { e.currentTarget.style.display = 'none' }}
+                />
+                <div className="absolute inset-0 flex items-center justify-center text-gray-400 z-0 bg-gray-200">
+                  <span>1092 Assist Preview</span>
+                </div>
+              </a>
+            </div>
+
             {/* Nyx Project */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <a 
